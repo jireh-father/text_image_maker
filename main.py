@@ -6,17 +6,18 @@ import glob
 import re
 
 image_size = None#(224, 224)
-text_color = "black"
-bg_color = "white"
+crop_and_padding=(224,224)
 font_size_list = list(range(12, 80))  # [font_size]
-output_dir = "gen"
-font_dir = "fonts"
-bg_dir = "D:\\bgs"
-text_dir = "text"
+output_dir = "./gen"#""C:\\Users\\seoil\\Downloads\\gen_test"
+font_dir = "./fonts"#""C:\\Users\\seoil\\Downloads\\korean_fonts_nodup"
+bg_dir = "./bg"#"C:\\Users\\seoil\\Downloads\\bgs"
+text_dir = "./text"
+nums_iter_per_font = 10
 
-bg_list = glob.glob(os.path.join(bg_dir, "*.jpg"))
-font_list = glob.glob(os.path.join(font_dir, "*.ttf"))
+bg_list = glob.glob(os.path.join(bg_dir, "*.jpg"))# + glob.glob(os.path.join(bg_dir, "*.JPG"))
+font_list = glob.glob(os.path.join(font_dir, "*.ttf"))# + glob.glob(os.path.join(font_dir, "*.TTF"))
 text_file_list = glob.glob(os.path.join(text_dir, "*.txt"))
+
 text_list = []
 text_dict = {}
 for text_file in text_file_list:
@@ -33,8 +34,8 @@ text_image_maker.random_make_synthetic_images_with_texts(text_list, font_list, f
                                                          # [bg_color, (222, 222, 231), (123, 223, 213)],
                                                          bg_list=bg_list,
                                                          padding_list=[10, 15, 20],
-                                                         nums_gen_iterate=1000, use_multi_fonts_per_text=True,
+                                                         nums_gen_iterate=nums_iter_per_font, use_multi_fonts_per_text=True,
                                                          use_binarize=False,
                                                          image_size=image_size, random_seed=None, use_cache=True,
                                                          back_fore_color_l1dist_limit=60, is_print=True,
-                                                         crop_and_padding=(224,224))
+                                                         crop_and_padding=crop_and_padding)
