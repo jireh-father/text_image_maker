@@ -25,7 +25,7 @@ def random_make_synthetic_images_with_texts(text_list, font_list, font_size_list
                                             bg_color_list=["black"], bg_list=None, padding_list=[10],
                                             nums_gen_iterate=100, use_multi_fonts_per_text=True, use_binarize=False,
                                             image_size=None, random_seed=None, use_cache=True, is_print=True,
-                                            back_fore_color_l1dist_limit=30, crop_and_padding=(224,224)):
+                                            back_fore_color_l1dist_limit=30, crop_and_padding=(224, 224)):
     random.seed(random_seed)
     print("start")
     dir_names = []
@@ -84,7 +84,7 @@ def random_make_synthetic_images_with_texts(text_list, font_list, font_size_list
             font_path = font_list[font_idx]
             if is_print:
                 print("create image - font: %s, text: %s, iter: %d/%d" % (
-                dir_names[font_idx], text, i, nums_gen_iterate))
+                    dir_names[font_idx], text, i, nums_gen_iterate))
             output_path = os.path.join(dir_paths[font_idx], "%s_%d.jpg" % (dir_names[font_idx], i))
             font_size, text_color, bg_color, bg_path, text_xy, padding = _random_sample(font_size_list, text_color_list,
                                                                                         bg_list, bg_color_list,
@@ -141,9 +141,9 @@ def _random_sample(font_size_list, text_color_list, bg_list, bg_color_list, text
 
 
 def make_synthetic_image_with_text(text, font_path, font_size, text_xy=None, text_color="white", bg_color="black",
-                                   padding={"left":5,"top":5,"right":5,"bottom":5}, image_size=None,
+                                   padding={"left": 5, "top": 5, "right": 5, "bottom": 5}, image_size=None,
                                    output_path=None, bg_path=None, use_binarize=False,
-                                   use_cache=True, back_fore_color_l1dist_limit=30, crop_and_padding=(224,224)):
+                                   use_cache=True, back_fore_color_l1dist_limit=30, crop_and_padding=(224, 224)):
     mode = "RGB"
     if bg_path is None and isinstance(bg_color, str) and isinstance(text_color, str) and text_color == bg_color:
         print("skip same string color", bg_color)
@@ -158,10 +158,15 @@ def make_synthetic_image_with_text(text, font_path, font_size, text_xy=None, tex
     text = unicode(text)
 
     font = ImageFont.truetype(font_path, font_size)
-    w, h = get_text_size(text, font)
+    try:
+        w, h = get_text_size(text, font)
+    except:
+        print("failed to get text size", font_path)
+        return False
     if bg_path is None:
         if image_size is None:
-            im = Image.new(mode, (w + padding["left"] + padding["right"], h + padding["top"] + padding["bottom"]), bg_color)
+            im = Image.new(mode, (w + padding["left"] + padding["right"], h + padding["top"] + padding["bottom"]),
+                           bg_color)
         else:
             im = Image.new(mode, image_size, bg_color)
     else:
@@ -231,8 +236,8 @@ def make_synthetic_image_with_text(text, font_path, font_size, text_xy=None, tex
 
     if crop_and_padding is not None:
         bg_im = Image.new(mode, crop_and_padding, "black")
-        x = crop_and_padding[0] // 2 - (w+padding["left"]+padding["right"]) // 2
-        y = crop_and_padding[1] // 2 - (h+padding["top"]+padding["bottom"]) // 2
+        x = crop_and_padding[0] // 2 - (w + padding["left"] + padding["right"]) // 2
+        y = crop_and_padding[1] // 2 - (h + padding["top"] + padding["bottom"]) // 2
         bg_im.paste(im, (x, y))
         im = bg_im
 
@@ -253,4 +258,3 @@ def make_synthetic_image_with_text(text, font_path, font_size, text_xy=None, tex
             return img
         else:
             im.save(output_path, format="JPEG", subsampling=0, quality=100)
-
