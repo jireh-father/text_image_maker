@@ -8,12 +8,12 @@ import os
 image_size = None#(224, 224)
 crop_and_padding=None#(224,224)
 font_size_list = list(range(12, 80))  # [font_size]
-output_dir = "./gen"#""C:\\Users\\seoil\\Downloads\\gen_test"
+output_dir = "./gen"
 
 #폰트경로
-font_dir = "./fonts"#""C:\\Users\\seoil\\Downloads\\korean_fonts_nodup"
+font_dir = "./fonts"#"/home/irelin/Downloads/korean_fonts_nodup"
 #배경이미지 경로
-bg_dir = "./bg"#"C:\\Users\\seoil\\Downloads\\bgs"
+bg_dir = "./bg"#"/home/irelin/Downloads/bgs"
 #말뭉치 경로
 text_dir = "./text"
 
@@ -48,7 +48,8 @@ text_image_maker.random_make_synthetic_images_with_texts(text_list, font_list, f
                                                          bg_color_list="random",
                                                          # [bg_color, (222, 222, 231), (123, 223, 213)],
                                                          bg_list=bg_list,
-                                                         padding_list=[10, 15, 20],
+                                                         padding_list=[-3],
+                                                         # padding_list=[10, 15, 20],
                                                          nums_gen_iterate=nums_iter_for_train, use_multi_fonts_per_text=True,
                                                          use_binarize=False,
                                                          image_size=image_size, random_seed=None, use_cache=True,
@@ -64,7 +65,7 @@ text_image_maker.random_make_synthetic_images_with_texts(text_list, font_list, f
                                                          bg_color_list="random",
                                                          # [bg_color, (222, 222, 231), (123, 223, 213)],
                                                          bg_list=bg_list,
-                                                         padding_list=[10, 15, 20],
+                                                         padding_list=[-3],
                                                          nums_gen_iterate=nums_iter_for_val, use_multi_fonts_per_text=True,
                                                          use_binarize=False,
                                                          image_size=image_size, random_seed=None, use_cache=True,
