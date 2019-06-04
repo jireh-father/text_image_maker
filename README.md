@@ -1,6 +1,8 @@
 # text_image_maker
 1. download bg images and korean fonts.
+
 https://drive.google.com/open?id=12zJ75MwyJvFtHN7irnGJy23-FG6hdPM-
+
 https://drive.google.com/open?id=1mKgwaXB8kNjaz0nZQxtgeAVNF0Z_J_mC
 
 2. uncompress them. (ex: 7za e filename)
